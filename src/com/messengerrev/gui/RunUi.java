@@ -18,9 +18,14 @@ import javax.swing.JMenu;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.border.LineBorder;
+import javax.xml.crypto.Data;
+
+import com.messengerrev.data.DataUser;
+
 import javax.swing.JPasswordField;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
@@ -28,14 +33,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JList;
 
 public class RunUi extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelLogIn;
 	private JLabel lblPassword;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField tF_username;
+	private JPasswordField pF_password;
 	private JPanel panelHome;
 	private JTextField tFCari;
 	private JLabel lblUsername;
@@ -89,25 +95,31 @@ public class RunUi extends JFrame {
 		lblPassword.setBounds(62, 316, 90, 24);
 		panelLogIn.add(lblPassword);
 		
-		textField = new JTextField();
-		textField.setBounds(167, 238, 253, 26);
-		panelLogIn.add(textField);
-		textField.setColumns(10);
+		tF_username = new JTextField();
+		tF_username.setBounds(167, 238, 253, 26);
+		panelLogIn.add(tF_username);
+		tF_username.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(167, 314, 253, 26);
-		panelLogIn.add(passwordField);		
+		pF_password = new JPasswordField();
+		pF_password.setBounds(167, 314, 253, 26);
+		panelLogIn.add(pF_password);		
 		
 		JButton btnLogin = new JButton("LogIn");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				contentPane.removeAll();
-				contentPane.repaint();
-				contentPane.revalidate();
+				DataUser mUser = new DataUser();
 				
-				contentPane.add(panelHome);
-				contentPane.repaint();
-				contentPane.revalidate();
+				if (tF_username.getText().equals(mUser.getUsername()) && String.valueOf(pF_password.getPassword()).equals(mUser.getPassword()) ) {
+					contentPane.removeAll();
+					contentPane.repaint();
+					contentPane.revalidate();
+					
+					contentPane.add(panelHome);
+					contentPane.repaint();
+					contentPane.revalidate();
+				} else {
+					JOptionPane.showMessageDialog(contentPane,"Data yang anda masukan salah!");
+				}
 			}
 		});
 		btnLogin.setBounds(167, 398, 115, 29);
@@ -168,6 +180,7 @@ public class RunUi extends JFrame {
 		tabbedPaneMain.addTab("PESAN", null, panelPesan, null);
 		
 		panelKontak = new JPanel();
+		panelKontak.setBackground(Color.MAGENTA);
 		tabbedPaneMain.addTab("KONTAK", null, panelKontak, null);
 		panelHome.setLayout(gl_panelHome);
 		

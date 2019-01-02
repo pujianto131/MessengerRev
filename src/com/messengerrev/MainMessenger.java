@@ -7,7 +7,7 @@ public class MainMessenger {
 
 	public static void main(String[] args) {
 		
-		RunUi2 mUi = new RunUi2();
+		RunUi mUi = new RunUi();
 		System.out.println("execute");
 		mUi.main(args);
 
